@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>MovieHunter — مرکز جست‌وجوی فیلم</title>
+<style>
+:root{--bg:#090e1b;--panel:#111a2d;--panel2:#17233b;--line:#263653;--text:#f4f6fb;--muted:#9eabc2;--red:#ff4567;--cyan:#66d9e8;--green:#65d6a2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#26375b 0,transparent 48%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;min-height:100vh}
+header{max-width:1100px;margin:auto;padding:28px 22px 14px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:12px}.mark{width:45px;height:45px;border-radius:14px;background:linear-gradient(135deg,var(--red),#9e3cff);display:grid;place-items:center;font-size:23px;box-shadow:0 8px 28px #ff456744}
+.brand strong{font-size:22px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:5px}
+.pill{border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:9px 13px;font-size:12px}
+main{max-width:1000px;margin:35px auto;padding:0 20px 60px}.hero{text-align:center;margin-bottom:30px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:1px}.hero h1{font-size:clamp(28px,5vw,43px);margin:13px 0}.hero p{color:var(--muted);line-height:1.9;margin:0}
+.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:linear-gradient(160deg,#17233b,#10192b);border:1px solid var(--line);border-radius:20px;padding:23px;box-shadow:0 18px 50px #0003}
+h2{font-size:17px;margin:0 0 18px}.field{margin:16px 0}.field label{display:block;color:#c7d1e2;font-size:13px;margin-bottom:9px}
+input,select{width:100%;border:1px solid #344663;background:#0b1323;color:white;border-radius:12px;padding:14px;font:inherit;outline:none}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #66d9e81c}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.type{border:1px solid var(--line);border-radius:13px;padding:14px;background:#0d1729;color:#dce5f5;cursor:pointer;text-align:center;font:inherit}.type.active{border-color:var(--red);background:#ff456719;color:white}
+button{font:inherit}.primary{width:100%;border:0;border-radius:12px;padding:15px;background:linear-gradient(100deg,#ff4567,#bd3cff);color:white;font-weight:bold;cursor:pointer;margin-top:10px;box-shadow:0 8px 24px #ff456733}.primary:hover{filter:brightness(1.08)}
+.hint{color:var(--muted);font-size:11px;line-height:1.8;margin-top:12px}
+.priority{display:grid;gap:9px}.priority div{display:flex;align-items:center;gap:10px;background:#0c1628;border:1px solid var(--line);padding:11px;border-radius:11px;font-size:13px}.num{width:25px;height:25px;border-radius:8px;background:#263754;display:grid;place-items:center;font-size:12px}
+.note{margin-top:16px;padding:12px;border-radius:12px;background:#0b1825;border:1px solid #254b50;color:#a9d9d7;font-size:11px;line-height:1.8}
+#results{margin-top:18px;display:none}.result-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.result{display:flex;gap:14px;align-items:center;border:1px solid var(--line);background:#0b1425;padding:13px;border-radius:13px;margin:9px 0}.poster{width:62px;height:82px;border-radius:9px;object-fit:cover;background:#24334d}.result-info{flex:1;min-width:0}.result-info b{display:block;margin-bottom:7px}.result-info small{color:var(--muted);line-height:1.7}.result a{color:var(--cyan);font-size:12px;text-decoration:none}
+.queue-item{border-bottom:1px solid var(--line);padding:12px 0;font-size:12px}.queue-item small{display:block;color:var(--muted);margin-top:5px}.empty{color:var(--muted);font-size:12px;line-height:1.8}
+footer{text-align:center;color:#71809b;font-size:11px;padding:20px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}header{align-items:flex-start}.pill{display:none}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="mark">▶</div><div><strong>MovieHunter</strong><small>جست‌وجوگر هوشمند دنیای تصویر</small></div></div>
+ <div class="pill">نسخه آزمایشی · 01</div>
+</header>
+<main>
+ <section class="hero"><div class="eyebrow">DISCOVER • SEARCH • ORGANIZE</div><h1>فیلم بعدی‌ات رو پیدا کن</h1><p>نام فیلم، سریال یا انیمه رو وارد کن؛ نوع محتوا و ترجیح زبانت رو مشخص کن.</p></section>
+ <div class="layout">
+  <section class="card">
+   <h2>⌕ جست‌وجوی محتوا</h2>
+   <div class="field"><label for="query">اسم فیلم، سریال یا انیمه</label><input id="query" placeholder="مثلاً Interstellar یا Naruto"></div>
+   <div class="field"><label>نوع محتوا</label><div class="type-grid"><button class="type active" data-kind="movie">🎞 سینمایی</button><button class="type" data-kind="series">▣ قسمت‌قسمتی</button></div></div>
+   <div class="field" id="episodesField" hidden><label for="episodes">تعداد قسمت‌های درخواستی</label><input id="episodes" type="number" min="1" max="100" value="3"></div>
+   <div class="field"><label for="language">ترتیب ترجیح زبان</label><select id="language"><option value="dub">اول دوبله فارسی، بعد زیرنویس، بعد زبان اصلی</option><option value="sub">اول زیرنویس فارسی، بعد دوبله، بعد زبان اصلی</option></select></div>
+   <button class="primary" id="searchBtn">جست‌وجو کن ←</button>
+   <div class="hint">این نسخه به جست‌وجوی اطلاعات انیمه و سریال متصل می‌شود. برای فیلم‌های عمومی و تشخیص واقعی دوبله/زیرنویس، در نسخه بعدی باید سرویس داده و منابع مجاز را با کلید دسترسی متصل کنیم.</div>
+   <div id="results"><div class="result-head"><b>نتایج جست‌وجو</b><small id="resultCount"></small></div><div id="resultList"></div></div>
+  </section>
+  <aside class="card">
+   <h2>ترتیب بررسی نسخه‌ها</h2>
+   <div class="priority"><div><span class="num">۱</span><span>دوبله فارسی</span></div><div><span class="num">۲</span><span>زیرنویس فارسی</span></div><div><span class="num">۳</span><span>زبان اصلی</span></div></div>
+   <div class="note">MovieHunter فقط لینک‌ها و فایل‌هایی را برای دریافت پیشنهاد می‌کند که منبعشان اجازه پخش یا دانلود داده باشد. فعلاً این صفحه فایل ویدیویی را از سایت‌های دیگر دانلود نمی‌کند.</div>
+   <h2 style="margin-top:25px">قائمة دریافت‌ها</h2>
+   <div id="queue" class="empty">هنوز موردی به فهرست اضافه نشده است.</div>
+  </aside>
+ </div>
+</main>
+<footer>MovieHunter · یک پروژه مستقل آموزشی</footer>
+<script>
+let kind='movie';
+const typeButtons=document.querySelectorAll('.type');
+typeButtons.forEach(btn=>btn.addEventListener('click',()=>{
+ kind=btn.dataset.kind;
+ typeButtons.forEach(b=>b.classList.toggle('active',b===btn));
+ document.getElementById('episodesField').hidden=kind!=='series';
+}));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function addQueue(title,source){
+ const q=document.getElementById('queue');
+ if(q.classList.contains('empty')){q.className='';q.textContent='';}
+ const item=document.createElement('div');item.className='queue-item';
+ item.innerHTML=`<b>${esc(title)}</b><small>منبع اطلاعات: ${esc(source)} · دریافت فایل نیازمند منبع مجاز است.</small>`;
+ q.prepend(item);
+}
+function showResults(items,source){
+ const box=document.getElementById('results'),list=document.getElementById('resultList');
+ box.style.display='block';list.innerHTML='';
+ document.getElementById('resultCount').textContent=items.length+' نتیجه';
+ if(!items.length){list.innerHTML='<p class="empty">نتیجه‌ای پیدا نشد. املای نام را بررسی کن یا عبارت دیگری بنویس.</p>';return;}
+ items.forEach(item=>{
+  const title=item.title||item.name||'بدون عنوان';
+  const img=item.images?.jpg?.image_url||item.image?.medium||'';
+  const summary=item.synopsis||item.summary||'اطلاعات بیشتری برای این عنوان در منبع جست‌وجو موجود نیست.';
+  const url=item.url||'#';
+  const div=document.createElement('div');div.className='result';
+  div.innerHTML=`${img?`<img class="poster" src="${esc(img)}" alt="">`:'<div class="poster"></div>'}<div class="result-info"><b>${esc(title)}</b><small>${esc(summary.replace(/<[^>]*>/g,'').slice(0,145))}</small><br><a href="${esc(url)}" target="_blank" rel="noopener">مشاهده اطلاعات ↗</a></div>`;
+  list.append(div);
+  const add=document.createElement('button');add.className='type';add.textContent='افزودن به فهرست';add.style.marginTop='8px';add.addEventListener('click',()=>addQueue(title,source));
+  div.querySelector('.result-info').append(add);
+ });
+}
+document.getElementById('searchBtn').addEventListener('click',async()=>{
+ const q=document.getElementById('query').value.trim();
+ if(!q){alert('اول نام محتوا را بنویس.');return;}
+ const n=Number(document.getElementById('episodes').value);
+ if(kind==='series'&&(!Number.isInteger(n)||n<1||n>100)){alert('تعداد قسمت باید بین ۱ تا ۱۰۰ باشد.');return;}
+ const btn=document.getElementById('searchBtn');btn.disabled=true;btn.textContent='در حال جست‌وجو…';
+ try{
+  let items=[],source='';
+  if(kind==='series'){
+   source='TVmaze';
+   const r=await fetch('https://api.tvmaze.com/search/shows?q='+encodeURIComponent(q));
+   if(!r.ok)throw new Error('search');
+   const data=await r.json();
+   items=data.slice(0,8).map(x=>x.show);
+  }else{
+   source='Jikan (جست‌وجوی انیمه)';
+   const r=await fetch('https://api.jikan.moe/v4/anime?q='+encodeURIComponent(q)+'&limit=8');
+   if(!r.ok)throw new Error('search');
+   const data=await r.json();items=data.data||[];
+  }
+  showResults(items,source);
+ }catch(e){
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultList').innerHTML='<p class="empty">اتصال به سرویس جست‌وجو برقرار نشد. اتصال اینترنت را بررسی کن و دوباره تلاش کن.</p>';
+  document.getElementById('resultCount').textContent='';
+ }
+ btn.disabled=false;btn.textContent='جست‌وجو کن ←';
+});
+</script>
+</body>
+</html>
